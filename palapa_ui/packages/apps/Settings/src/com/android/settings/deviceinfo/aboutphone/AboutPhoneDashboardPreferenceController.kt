@@ -255,23 +255,58 @@ class AboutPhoneDashboardPreferenceController(context: Context, key: String) :
                 copyToClipboard(v.context, context.getString(R.string.iqoo_spec_processor_label), processor)
             }
 
-            // Spec 3: Storage click -> Open Storage Dashboard
+            // Spec 3: Storage click -> Open Storage Dashboard (Safe Official Intent)
             layoutPreference.findViewById<View>(R.id.about_spec_storage_container)?.setOnClickListener { v ->
                 try {
-                    SubSettingLauncher(v.context)
-                        .setDestination("com.android.settings.deviceinfo.StorageDashboardFragment")
-                        .setTitleRes(R.string.storage_settings)
-                        .setSourceMetricsCategory(SettingsEnums.DEVICEINFO)
-                        .launch()
+                    val intent = Intent(Settings.ACTION_INTERNAL_STORAGE_SETTINGS).apply {
+                        setPackage(v.context.packageName)
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    }
+                    if (intent.resolveActivity(v.context.packageManager) != null) {
+                        v.context.startActivity(intent)
+                    } else {
+                        SubSettingLauncher(v.context)
+                            .setDestination("com.android.settings.deviceinfo.StorageDashboardFragment")
+                            .setTitleRes(R.string.storage_settings)
+                            .setSourceMetricsCategory(SettingsEnums.DEVICEINFO)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .launch()
+                    }
                 } catch (e: Exception) {
-                    // ignore
+                    try {
+                        SubSettingLauncher(v.context)
+                            .setDestination("com.android.settings.deviceinfo.StorageDashboardFragment")
+                            .setTitleRes(R.string.storage_settings)
+                            .setSourceMetricsCategory(SettingsEnums.DEVICEINFO)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .launch()
+                    } catch (_: Exception) {}
                 }
             }
+            layoutPreference.findViewById<View>(R.id.about_spec_storage_container)?.setOnLongClickListener { v ->
+                val storageStr = layoutPreference.findViewById<TextView>(R.id.about_spec_storage_value)?.text?.toString() ?: "256 GB"
+                copyToClipboard(v.context, context.getString(R.string.iqoo_spec_storage_label), storageStr)
+                true
+            }
 
-            // Spec 4: RAM click -> copy
+            // Spec 4: RAM click -> Open RamExpansionSettings (Menu RAM & Virtual RAM)
             layoutPreference.findViewById<View>(R.id.about_spec_ram_container)?.setOnClickListener { v ->
+                try {
+                    SubSettingLauncher(v.context)
+                        .setDestination("com.android.settings.system.RamExpansionSettings")
+                        .setTitleRes(R.string.ram_expansion_title)
+                        .setSourceMetricsCategory(SettingsEnums.DEVICEINFO)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        .launch()
+                } catch (e: Exception) {
+                    val ramStr = layoutPreference.findViewById<TextView>(R.id.about_spec_ram_value)?.text?.toString() ?: "8 GB"
+                    copyToClipboard(v.context, context.getString(R.string.iqoo_spec_ram_label), ramStr)
+                }
+            }
+            layoutPreference.findViewById<View>(R.id.about_spec_ram_container)?.setOnLongClickListener { v ->
                 val ramStr = layoutPreference.findViewById<TextView>(R.id.about_spec_ram_value)?.text?.toString() ?: "8 GB"
                 copyToClipboard(v.context, context.getString(R.string.iqoo_spec_ram_label), ramStr)
+                true
             }
 
             // Spec 5: Battery click -> Open Battery Info
