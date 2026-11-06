@@ -1743,10 +1743,46 @@ fun ContentScope.OneUICompactMediaPlayer(
         0f
     }
 
+    var offsetX by remember { mutableFloatStateOf(0f) }
+    var isDismissed by remember(activeController.packageName) {
+        mutableStateOf(playbackState?.state != PlaybackState.STATE_PLAYING)
+    }
+
+    LaunchedEffect(playbackState?.state) {
+        if (playbackState?.state == PlaybackState.STATE_PLAYING) {
+            isDismissed = false
+        }
+    }
+
+    if (isDismissed) {
+        return
+    }
+
     Box(
         modifier = modifier
             .fillMaxWidth()
             .height(138.dp)
+            .graphicsLayer {
+                translationX = offsetX
+                alpha = (1f - (kotlin.math.abs(offsetX) / 350f)).coerceIn(0f, 1f)
+            }
+            .pointerInput(Unit) {
+                detectHorizontalDragGestures(
+                    onDragEnd = {
+                        if (kotlin.math.abs(offsetX) > 150f) {
+                            isDismissed = true
+                        }
+                        offsetX = 0f
+                    },
+                    onDragCancel = {
+                        offsetX = 0f
+                    },
+                    onHorizontalDrag = { change, dragAmount ->
+                        change.consume()
+                        offsetX += dragAmount
+                    }
+                )
+            }
             .clip(RoundedCornerShape(32.dp))
             .background(Color(0x3514171E))
             .border(1.dp, Color(0x2BFFFFFF), RoundedCornerShape(32.dp))
