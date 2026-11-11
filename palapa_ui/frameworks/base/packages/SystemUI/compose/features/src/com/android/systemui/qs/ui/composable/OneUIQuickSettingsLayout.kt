@@ -2413,7 +2413,7 @@ private fun OneUIEditTileItem(
     var cellWidthPx by remember { mutableFloatStateOf(0f) }
     var cellHeightPx by remember { mutableFloatStateOf(0f) }
 
-    val dragModifier = if (isCurrent) {
+    val circleDragModifier = if (isCurrent) {
         Modifier.pointerInput(tile.tileSpec.spec) {
             detectDragGesturesAfterLongPress(
                 onDragStart = {
@@ -2455,18 +2455,6 @@ private fun OneUIEditTileItem(
                 }
             )
         }
-        .onGloballyPositioned { coordinates ->
-            cellWidthPx = coordinates.size.width.toFloat()
-            cellHeightPx = coordinates.size.height.toFloat()
-        }
-        .zIndex(if (isTileDragging) 100f else 0f)
-        .graphicsLayer {
-            translationX = if (isTileDragging) dragOffset.x else 0f
-            translationY = if (isTileDragging) dragOffset.y else 0f
-            scaleX = if (isTileDragging) 1.15f else 1.0f
-            scaleY = if (isTileDragging) 1.15f else 1.0f
-            shadowElevation = if (isTileDragging) 16f else 0f
-        }
     } else {
         Modifier
     }
@@ -2474,19 +2462,31 @@ private fun OneUIEditTileItem(
     Column(
         modifier = Modifier
             .width(74.dp)
-            .then(dragModifier),
+            .onGloballyPositioned { coordinates ->
+                cellWidthPx = coordinates.size.width.toFloat()
+                cellHeightPx = coordinates.size.height.toFloat()
+            }
+            .zIndex(if (isTileDragging) 100f else 0f)
+            .graphicsLayer {
+                translationX = if (isTileDragging) dragOffset.x else 0f
+                translationY = if (isTileDragging) dragOffset.y else 0f
+                scaleX = if (isTileDragging) 1.15f else 1.0f
+                scaleY = if (isTileDragging) 1.15f else 1.0f
+                shadowElevation = if (isTileDragging) 16f else 0f
+            },
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(
             modifier = Modifier.size(56.dp),
             contentAlignment = Alignment.Center,
         ) {
-            // Main circle
+            // Main circle: drag on hold, action on tap
             Box(
                 modifier = Modifier
                     .size(46.dp)
                     .clip(if (isPill) RoundedCornerShape(14.dp) else CircleShape)
                     .background(buttonBg)
+                    .then(circleDragModifier)
                     .clickable(onClick = onAction),
                 contentAlignment = Alignment.Center,
             ) {
@@ -2497,24 +2497,32 @@ private fun OneUIEditTileItem(
                 )
             }
 
-            // Badge at top right (+ or -)
+            // Badge at top right (+ or -): enlarged 32dp touch area, 24dp visual circle, zIndex priority
             Box(
                 modifier = Modifier
-                    .size(20.dp)
+                    .size(32.dp)
                     .align(Alignment.TopEnd)
+                    .zIndex(20f)
                     .clip(CircleShape)
-                    .background(badgeBg)
                     .clickable(onClick = onAction),
                 contentAlignment = Alignment.Center,
             ) {
-                Text(
-                    text = badgeText,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(bottom = 1.dp),
-                )
+                Box(
+                    modifier = Modifier
+                        .size(24.dp)
+                        .clip(CircleShape)
+                        .background(badgeBg),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(
+                        text = badgeText,
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(bottom = 1.dp),
+                    )
+                }
             }
 
             // Top-Left badge (Only for current tiles): Form factor toggle (Pill vs 1x1)
