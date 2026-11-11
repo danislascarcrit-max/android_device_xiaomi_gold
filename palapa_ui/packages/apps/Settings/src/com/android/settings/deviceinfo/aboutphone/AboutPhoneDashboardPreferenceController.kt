@@ -157,8 +157,12 @@ class AboutPhoneDashboardPreferenceController(context: Context, key: String) :
                 // Detect zRAM (Swap)
                 val zramGb = try {
                     val zramFile = File("/sys/block/zram0/disksize")
-                    if (zramFile.exists()) {
-                        val bytes = zramFile.readText().trim().toLongOrNull() ?: 0L
+                    val bytes = if (zramFile.canRead()) {
+                        zramFile.readText().trim().toLongOrNull()
+                    } else {
+                        null
+                    }
+                    if (bytes != null) {
                         (bytes.toDouble() / (1024.0 * 1024.0 * 1024.0)).roundToInt()
                     } else {
                         var swapKb = 0L
@@ -170,13 +174,22 @@ class AboutPhoneDashboardPreferenceController(context: Context, key: String) :
                         (swapKb.toDouble() / (1024.0 * 1024.0)).roundToInt()
                     }
                 } catch (e: Exception) {
-                    7
+                    var swapKb = 0L
+                    try {
+                        File("/proc/meminfo").forEachLine { line ->
+                            if (line.startsWith("SwapTotal:")) {
+                                swapKb = line.substringAfter(":").trim().substringBefore(" ").trim().toLongOrNull() ?: 0L
+                            }
+                        }
+                    } catch (_: Exception) {
+                    }
+                    (swapKb.toDouble() / (1024.0 * 1024.0)).roundToInt()
                 }
 
                 val ramText = if (zramGb > 0) "$physicalRamGb GB + $zramGb GB" else "$physicalRamGb GB"
                 layoutPreference.findViewById<TextView>(R.id.about_spec_ram_value)?.text = ramText
             } catch (e: Exception) {
-                layoutPreference.findViewById<TextView>(R.id.about_spec_ram_value)?.text = "8 GB + 7 GB"
+                layoutPreference.findViewById<TextView>(R.id.about_spec_ram_value)?.text = "8 GB"
             }
 
             // 6. Battery Capacity (Kapasitas baterai)
@@ -200,9 +213,10 @@ class AboutPhoneDashboardPreferenceController(context: Context, key: String) :
             // Banner Title
             val palapaEdition = "Majapahit Edition"
             val palapaTitle = "Palapa OS"
+            val crdroidVer = SystemProperties.get("ro.crdroid.build.version", "13.1")
             layoutPreference.findViewById<TextView>(R.id.about_iqoo_banner_os_title)?.text = palapaTitle
             layoutPreference.findViewById<TextView>(R.id.about_iqoo_banner_os_subtitle)?.text =
-                "$palapaEdition • crDroid 13.0"
+                "$palapaEdition • crDroid $crdroidVer"
 
             // CLICK LISTENERS
 

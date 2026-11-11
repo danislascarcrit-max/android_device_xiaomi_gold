@@ -45,8 +45,7 @@ PRODUCT_PRODUCT_PROPERTIES += \
     ro.shinkai.maintainer=Asnalstan
 
 PRODUCT_SYSTEM_PROPERTIES += \
-    ro.product.marketname=Redmi Note 13 5G \
-    ro.crdroid.version=13.0
+    ro.product.marketname=Redmi Note 13 5G
 
 # Leica Camera
 $(call inherit-product-if-exists, vendor/xiaomi/camera/camera.mk)
