@@ -107,6 +107,7 @@
         "32",
         "24",
         "16",
+        "10",
         "8"
       ],
       "DefaultIndex": 0,
@@ -190,7 +191,7 @@
       "PowerHint": "EXPENSIVE_RENDERING",
       "Node": "GPUExpensiveRendering",
       "Duration": 0,
-      "Value": "16"
+      "Value": "10"
     },
     {
       "PowerHint": "INTERACTION",
@@ -202,7 +203,7 @@
       "PowerHint": "LAUNCH",
       "Node": "GPUExpensiveRendering",
       "Duration": 700,
-      "Value": "16"
+      "Value": "10"
     }
   ],
   "AdpfConfig": [

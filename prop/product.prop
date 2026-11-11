@@ -1,7 +1,6 @@
-# Disable expensive real-time background blur on Mali-G57 MC2 for smooth 120Hz transitions and lower heat
-ro.sf.blurs_are_expensive=0
-ro.surface_flinger.supports_background_blur=0
-disableBlurs=true
+# Enable blur with Expensive Rendering hint so GPU boosts only during blur transitions
+ro.sf.blurs_are_expensive=1
+ro.surface_flinger.supports_background_blur=1
 
 # Bluetooth
 bluetooth.profile.asha.central.enabled=true

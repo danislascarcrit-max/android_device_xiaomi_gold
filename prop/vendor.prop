@@ -151,8 +151,15 @@ ro.vendor.arm.gralloc.shared_access_usage_flags=0x10000000
 ro.vendor.arm.gralloc.shared_access_usage_mask=0x50000000
 
 # HWUI
-debug.hwui.use_hint_manager=false
+debug.hwui.use_hint_manager=true
 debug.hwui.initialize_gl_always=1
+ro.hwui.texture_cache_size=72
+ro.hwui.layer_cache_size=48
+ro.hwui.r_buffer_cache_size=8
+ro.hwui.path_cache_size=32
+ro.hwui.gradient_cache_size=1
+ro.hwui.drop_shadow_cache_size=6
+ro.hwui.texture_cache_flushrate=0.4
 
 # Media
 media.c2.hal.selection=aidl
@@ -252,6 +259,8 @@ ro.surface_flinger.has_wide_color_display=true
 ro.surface_flinger.use_color_management=true
 ro.surface_flinger.wcg_composition_dataspace=143261696
 debug.renderengine.backend=skiaglthreaded
+debug.renderengine.blur_algorithm=kawase
+debug.sf.predict_hwc_composition_strategy=1
 debug.sf.enable_gl_backpressure=1
 ro.surface_flinger.game_default_frame_rate_override=60
 
