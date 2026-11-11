@@ -28,8 +28,8 @@
       "Name": "SKIN",
       "Type": "SKIN",
       "ZoneName": "mtktsAP",
-      "HotThreshold": ["NaN", 43.0, 45.0, 50.0, 70.0, 80.0, 90.0],
-      "VrThreshold": "50.0",
+      "HotThreshold": ["NaN", 46.0, 48.0, 52.0, 70.0, 80.0, 90.0],
+      "VrThreshold": "52.0",
       "Multiplier": 0.001
     },
     {

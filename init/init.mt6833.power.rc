@@ -1,2 +1,43 @@
-on late-init
+on boot
+    # Grant libperfmgr (user system) write access to CPU/GPU/uclamp nodes before initializing Power HAL
+    chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq
+    chmod 0664 /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
+    chmod 0664 /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
+    chown system system /sys/devices/system/cpu/cpufreq/policy6/scaling_max_freq
+    chmod 0664 /sys/devices/system/cpu/cpufreq/policy6/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpufreq/policy6/scaling_min_freq
+    chmod 0664 /sys/devices/system/cpu/cpufreq/policy6/scaling_min_freq
+    chown system system /sys/kernel/ged/hal/custom_boost_gpu_freq
+    chmod 0664 /sys/kernel/ged/hal/custom_boost_gpu_freq
+    chown system system /dev/cpuctl/top-app/cpu.uclamp.min
+    chmod 0664 /dev/cpuctl/top-app/cpu.uclamp.min
+    chown system system /dev/cpuctl/top-app/cpu.uclamp.latency_sensitive
+    chmod 0664 /dev/cpuctl/top-app/cpu.uclamp.latency_sensitive
+    chown system system /dev/cpuctl/foreground/cpu.uclamp.min
+    chmod 0664 /dev/cpuctl/foreground/cpu.uclamp.min
+
     setprop vendor.powerhal.init 1
+
+on property:sys.boot_completed=1
+    # Schedutil (sugov_ext) rate limits to prevent normal-usage CPU frequency spikes and heat
+    write /sys/devices/system/cpu/cpufreq/policy0/sugov_ext/up_rate_limit_us 1000
+    write /sys/devices/system/cpu/cpufreq/policy0/sugov_ext/down_rate_limit_us 10000
+    write /sys/devices/system/cpu/cpufreq/policy6/sugov_ext/up_rate_limit_us 2000
+    write /sys/devices/system/cpu/cpufreq/policy6/sugov_ext/down_rate_limit_us 5000
+    write /sys/devices/system/cpu/cpufreq/policy0/schedutil/up_rate_limit_us 1000
+    write /sys/devices/system/cpu/cpufreq/policy0/schedutil/down_rate_limit_us 10000
+    write /sys/devices/system/cpu/cpufreq/policy6/schedutil/up_rate_limit_us 2000
+    write /sys/devices/system/cpu/cpufreq/policy6/schedutil/down_rate_limit_us 5000
+
+    # Clamp background task utilization to prevent background services from heating up Big cores
+    write /dev/cpuctl/background/cpu.uclamp.max 40
+    write /dev/cpuctl/system-background/cpu.uclamp.max 50
+    write /dev/cpuctl/dex2oat/cpu.uclamp.max 60
+    write /dev/cpuctl/top-app/cpu.uclamp.latency_sensitive 1
+
+    # MediaTek GED 120Hz GPU DVFS tuning for smooth transitions
+    write /sys/module/ged/parameters/gx_dfps 120
+    write /sys/module/ged/parameters/ged_smart_boost 1
+    write /sys/module/ged/parameters/enable_gpu_boost 1
+    write /sys/module/ged/parameters/boost_gpu_enable 1

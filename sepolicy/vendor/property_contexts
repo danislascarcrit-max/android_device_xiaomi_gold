@@ -14,6 +14,8 @@ ro.vendor.config.low_ram u:object_r:vendor_mtk_audio_prop:s0 exact bool
 
 # Charging
 persist.vendor.accelerate.charge    u:object_r:vendor_accelerate_charge_prop:s0 exact string
+persist.vendor.batterysecret.       u:object_r:vendor_batterysecret_prop:s0 prefix string
+vendor.batterysecret.               u:object_r:vendor_batterysecret_prop:s0 prefix string
 
 # Set by the camera HAL every time streams are configured.
 vendor.debug.configurestreams. u:object_r:vendor_mtk_emcamera_prop:s0 prefix string
