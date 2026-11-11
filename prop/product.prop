@@ -1,6 +1,7 @@
-# Enable blur with Expensive Rendering hint so GPU boosts only during blur transitions
+# Enable blur
 ro.sf.blurs_are_expensive=1
 ro.surface_flinger.supports_background_blur=1
+persist.sysui.disableBlur=false
 
 # Bluetooth
 bluetooth.profile.asha.central.enabled=true
