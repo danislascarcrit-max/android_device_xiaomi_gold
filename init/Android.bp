@@ -101,3 +101,23 @@ prebuilt_etc {
     sub_dir: "init/hw",
     vendor: true,
 }
+
+sh_binary {
+    name: "ram_expansion.sh",
+    src: "ram_expansion.sh",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.gold_zram.rc",
+    src: "init.gold_zram.rc",
+    relative_install_path: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.gold_ram_expansion.rc",
+    src: "init.gold_ram_expansion.rc",
+    relative_install_path: "init",
+    system_ext_specific: true,
+}

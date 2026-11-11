@@ -218,10 +218,13 @@ $(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,fal
 
 # Init
 PRODUCT_PACKAGES += \
+    init.gold_ram_expansion.rc \
+    init.gold_zram.rc \
     init.mt6833.rc \
     init.project.rc \
     init.project.recovery.rc \
     init.recovery.mt6833.rc \
+    ram_expansion.sh \
     ueventd.mtk.rc
 
 # Charging

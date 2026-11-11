@@ -1,0 +1,11 @@
+on load_persist_props_action
+    setprop persist.vendor.ram_expansion ${persist.sys.ram_expansion:-4}
+    start vendor.ram_expansion
+
+on property:sys.boot_completed=1
+    setprop persist.vendor.ram_expansion ${persist.sys.ram_expansion:-4}
+    start vendor.ram_expansion
+
+on property:persist.sys.ram_expansion=*
+    setprop persist.vendor.ram_expansion ${persist.sys.ram_expansion:-4}
+    start vendor.ram_expansion

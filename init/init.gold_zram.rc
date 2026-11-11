@@ -1,0 +1,6 @@
+service vendor.ram_expansion /vendor/bin/ram_expansion.sh
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
