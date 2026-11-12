@@ -34,3 +34,6 @@ ro.fm.seek_space=1
 persist.dbg.volte_avail_ovr=1
 persist.dbg.vt_avail_ovr=1
 persist.dbg.wfc_avail_ovr=1
+
+# Camera (MiuiCamera)
+ro.com.google.lens.oem_camera_package=com.android.camera

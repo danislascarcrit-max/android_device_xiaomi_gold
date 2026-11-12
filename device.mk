@@ -119,14 +119,8 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml
 
-# Camera
-PRODUCT_PACKAGES += \
-    ApertureResGoldNoUWMGoldACn \
-    ApertureResGoldNoUWMGoldAIn \
-    ApertureResGoldNoUWMGoldCn \
-    ApertureResGoldNoUWMIronPGl \
-    ApertureResGoldUWMGoldIn \
-    ApertureResGoldUWMIronGl
+# Camera (HyperOS 3.0 MiuiCamera 6.1)
+$(call inherit-product, $(DEVICE_PATH)/miuicamera/miuicamera.mk)
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
