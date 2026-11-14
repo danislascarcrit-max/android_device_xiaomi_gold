@@ -1303,9 +1303,11 @@ fun ContentScope.OneUIQuickQuickSettingsLayout(
     val allTiles = qsContainerViewModel.tileGridViewModel.tileViewModels
     TileListener(tiles = allTiles) { true }
 
-    val wifiTile = allTiles.firstOrNull { it.spec.spec == "internet" || it.spec.spec == "wifi" }
-    val btTile = allTiles.firstOrNull { it.spec.spec == "bt" || it.spec.spec == "bluetooth" }
-    val roundTiles = allTiles.filter { it != wifiTile && it != btTile }.distinctBy { it.spec.spec }.take(6)
+    val pillSpecs by rememberPillTileSpecs()
+    val pillTiles = allTiles.filter { pillSpecs.contains(it.spec.spec) }.distinctBy { it.spec.spec }
+    val wifiTile = pillTiles.getOrNull(0)
+    val btTile = pillTiles.getOrNull(1)?.takeIf { it != wifiTile }
+    val roundTiles = allTiles.filter { !pillSpecs.contains(it.spec.spec) }.distinctBy { it.spec.spec }.take(6)
 
     val context = LocalContext.current
 
@@ -1366,41 +1368,48 @@ fun ContentScope.OneUIQuickQuickSettingsLayout(
             )
         }
 
-        // 3. Di bawahnya: 2x1 pill besar (Wi-Fi & Bluetooth)
-        Spacer(Modifier.height(10.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
-            OneUIBigPillTile(
-                title = "Wi-Fi",
-                defaultIconRes = R.drawable.ic_statusbar_wifi,
-                tile = wifiTile,
-                fallbackTile = null,
-                modifier = Modifier.weight(1f),
-                isDark = isDark,
-                pillActiveBg = pillActiveBg,
-                pillInactiveBg = pillInactiveBg,
-                activeContentColor = activeContentColor,
-                inactiveContentColor = inactiveContentColor,
-                textPrimary = textPrimary,
-                textSecondary = textSecondary,
-            )
-
-            OneUIBigPillTile(
-                title = "Bluetooth",
-                defaultIconRes = R.drawable.vd_bluetooth,
-                tile = btTile,
-                fallbackTile = null,
-                modifier = Modifier.weight(1f),
-                isDark = isDark,
-                pillActiveBg = pillActiveBg,
-                pillInactiveBg = pillInactiveBg,
-                activeContentColor = activeContentColor,
-                inactiveContentColor = inactiveContentColor,
-                textPrimary = textPrimary,
-                textSecondary = textSecondary,
-            )
+        // 3. Di bawahnya: 2x1 pill besar (Sinkron dengan pillSpecs & QS Penuh)
+        if (wifiTile != null || btTile != null) {
+            Spacer(Modifier.height(10.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                if (wifiTile != null) {
+                    OneUIBigPillTile(
+                        title = "Wi-Fi",
+                        defaultIconRes = R.drawable.ic_statusbar_wifi,
+                        tile = wifiTile,
+                        fallbackTile = null,
+                        modifier = Modifier.weight(1f),
+                        isDark = isDark,
+                        pillActiveBg = pillActiveBg,
+                        pillInactiveBg = pillInactiveBg,
+                        activeContentColor = activeContentColor,
+                        inactiveContentColor = inactiveContentColor,
+                        textPrimary = textPrimary,
+                        textSecondary = textSecondary,
+                    )
+                }
+                if (btTile != null) {
+                    OneUIBigPillTile(
+                        title = "Bluetooth",
+                        defaultIconRes = R.drawable.vd_bluetooth,
+                        tile = btTile,
+                        fallbackTile = null,
+                        modifier = Modifier.weight(1f),
+                        isDark = isDark,
+                        pillActiveBg = pillActiveBg,
+                        pillInactiveBg = pillInactiveBg,
+                        activeContentColor = activeContentColor,
+                        inactiveContentColor = inactiveContentColor,
+                        textPrimary = textPrimary,
+                        textSecondary = textSecondary,
+                    )
+                } else if (wifiTile != null) {
+                    Spacer(Modifier.weight(1f))
+                }
+            }
         }
 
         // 4. Compact One UI Media player di bawah 2x1 pill Wi-Fi & Bluetooth
