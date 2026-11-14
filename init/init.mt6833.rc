@@ -43,9 +43,6 @@ on late-init
 on charger
     write /sys/devices/platform/battery_meter/FG_daemon_log_level 7
     write /sys/bus/platform/devices/battery/FG_daemon_log_level 7
-    chown system system /sys/class/thermal/thermal_message/sconfig
-    chmod 0664 /sys/class/thermal/thermal_message/sconfig
-    write /sys/class/thermal/thermal_message/sconfig 0
     start mi_thermald
     start fuelgauged
     start fuelgauged_nvram
@@ -112,8 +109,8 @@ on post-fs
 on post-fs-data
     wait_for_prop vendor.all.modules.ready 1
 
-    # zram (configured dynamically by vendor.ram_expansion)
-    # swapon_all /vendor/etc/fstab.enableswap
+    # zram
+    swapon_all /vendor/etc/fstab.enableswap
 
     # boot time fs tune
     write /sys/block/mmcblk0/queue/iostats 0
@@ -617,10 +614,8 @@ on post-fs-data
     chmod 0440 /dev/mcupm
     chown root system /dev/mcupm
 
-    chown system system /sys/class/thermal/thermal_message/sconfig
-    chmod 0664 /sys/class/thermal/thermal_message/sconfig
-    write /sys/class/thermal/thermal_message/sconfig 0
     start mi_thermald
+    chown system system /sys/class/thermal/thermal_message/sconfig
 
     #widevine driver node
     chmod 0660 /dev/drm_wv
@@ -897,3 +892,13 @@ service mi_thermald /vendor/bin/mi_thermald
     user root
     group system
     seclabel u:r:mi_thermald:s0
+
+service gold_chg_thermal /vendor/bin/gold_chg_thermal.sh
+    class late_start
+    user root
+    group system
+    seclabel u:r:gold_thermal:s0
+
+on property:sys.boot_completed=1
+    write /sys/class/thermal/thermal_message/sconfig 10
+    start gold_chg_thermal

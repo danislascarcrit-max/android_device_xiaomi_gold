@@ -123,8 +123,17 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml
 
-# Camera (HyperOS 3.0 MiuiCamera 6.1)
-$(call inherit-product, $(DEVICE_PATH)/miuicamera/miuicamera.mk)
+# Camera
+#PRODUCT_PACKAGES += \
+ #   ApertureResGoldNoUWMGoldACn \
+  #  ApertureResGoldNoUWMGoldAIn \
+   # ApertureResGoldNoUWMGoldCn \
+    #ApertureResGoldNoUWMIronPGl \
+    #ApertureResGoldUWMGoldIn \
+#    ApertureResGoldUWMIronGl
+# Leica Camera Prebuilts
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,$(DEVICE_PATH)/prebuilt/system,$(TARGET_COPY_OUT_SYSTEM))
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
@@ -216,18 +225,18 @@ $(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,fal
 
 # Init
 PRODUCT_PACKAGES += \
-    init.gold_ram_expansion.rc \
-    init.gold_zram.rc \
     init.mt6833.rc \
     init.project.rc \
     init.project.recovery.rc \
     init.recovery.mt6833.rc \
-    ram_expansion.sh \
     ueventd.mtk.rc
 
 # Charging
 PRODUCT_PACKAGES += \
     init.batterysecret.rc
+
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/configs/gold_chg_thermal.sh:$(TARGET_COPY_OUT_VENDOR)/bin/gold_chg_thermal.sh
 
 # Kernel module loading
 PRODUCT_PACKAGES += \
@@ -276,9 +285,8 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
 
-# Power-off alarm
-PRODUCT_PACKAGES += \
-    PowerOffAlarm
+## Power-off alarm
+#PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \

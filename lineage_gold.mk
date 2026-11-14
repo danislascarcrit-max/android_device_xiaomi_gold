@@ -48,5 +48,4 @@ PRODUCT_SYSTEM_PROPERTIES += \
     ro.product.marketname=Redmi Note 13 5G
 
 # Leica Camera
-$(call inherit-product-if-exists, vendor/xiaomi/camera/camera.mk)
 

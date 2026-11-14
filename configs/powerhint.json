@@ -70,12 +70,10 @@
       "Values": [
         "100",
         "60",
-        "50",
         "40",
-        "20",
         "0"
       ],
-      "DefaultIndex": 5,
+      "DefaultIndex": 3,
       "ResetOnInit": true
     },
     {
@@ -93,10 +91,9 @@
       "Path": "/dev/cpuctl/foreground/cpu.uclamp.min",
       "Values": [
         "30",
-        "15",
         "0"
       ],
-      "DefaultIndex": 2,
+      "DefaultIndex": 1,
       "ResetOnInit": true
     },
     {
@@ -104,11 +101,8 @@
       "Path": "/sys/kernel/ged/hal/custom_boost_gpu_freq",
       "Values": [
         "44",
-        "32",
-        "24",
         "16",
-        "10",
-        "8"
+        "32"
       ],
       "DefaultIndex": 0,
       "ResetOnInit": true
@@ -130,44 +124,44 @@
     {
       "PowerHint": "LAUNCH",
       "Node": "CPULittleClusterMinFreq",
-      "Duration": 700,
+      "Duration": 1200,
       "Value": "1500000"
     },
     {
       "PowerHint": "LAUNCH",
       "Node": "CPUBigClusterMinFreq",
-      "Duration": 700,
-      "Value": "1837000"
+      "Duration": 1200,
+      "Value": "2118000"
     },
     {
       "PowerHint": "LAUNCH",
       "Node": "UclampTopAppMin",
-      "Duration": 700,
-      "Value": "50"
+      "Duration": 1200,
+      "Value": "60"
     },
     {
       "PowerHint": "INTERACTION",
       "Node": "CPULittleClusterMinFreq",
-      "Duration": 80,
+      "Duration": 0,
       "Value": "1128000"
     },
     {
       "PowerHint": "INTERACTION",
       "Node": "CPUBigClusterMinFreq",
-      "Duration": 80,
-      "Value": "898000"
+      "Duration": 0,
+      "Value": "1129000"
     },
     {
       "PowerHint": "INTERACTION",
       "Node": "UclampTopAppMin",
-      "Duration": 80,
-      "Value": "20"
+      "Duration": 0,
+      "Value": "40"
     },
     {
       "PowerHint": "GAME",
       "Node": "UclampTopAppMin",
       "Duration": 0,
-      "Value": "60"
+      "Value": "100"
     },
     {
       "PowerHint": "GAME",
@@ -191,19 +185,25 @@
       "PowerHint": "EXPENSIVE_RENDERING",
       "Node": "GPUExpensiveRendering",
       "Duration": 0,
-      "Value": "10"
+      "Value": "32"
+    },
+    {
+      "PowerHint": "EXPENSIVE_RENDERING",
+      "Node": "UclampForegroundMin",
+      "Duration": 0,
+      "Value": "30"
     },
     {
       "PowerHint": "INTERACTION",
       "Node": "GPUExpensiveRendering",
-      "Duration": 80,
-      "Value": "24"
+      "Duration": 0,
+      "Value": "32"
     },
     {
       "PowerHint": "LAUNCH",
       "Node": "GPUExpensiveRendering",
-      "Duration": 700,
-      "Value": "10"
+      "Duration": 1200,
+      "Value": "16"
     }
   ],
   "AdpfConfig": [
@@ -213,23 +213,23 @@
       "PID_Po": 2.0,
       "PID_Pu": 1.0,
       "PID_I": 0.0,
-      "PID_I_Init": 100,
-      "PID_I_High": 384,
+      "PID_I_Init": 200,
+      "PID_I_High": 512,
       "PID_I_Low": -30,
-      "PID_Do": 250.0,
+      "PID_Do": 500.0,
       "PID_Du": 0.0,
       "SamplingWindow_P": 1,
       "SamplingWindow_I": 0,
       "SamplingWindow_D": 1,
       "UclampMin_On": true,
-      "UclampMin_Init": 64,
-      "UclampMin_LoadUp": 192,
-      "UclampMin_LoadReset": 128,
-      "UclampMin_High": 256,
+      "UclampMin_Init": 96,
+      "UclampMin_LoadUp": 384,
+      "UclampMin_LoadReset": 384,
+      "UclampMin_High": 384,
       "UclampMin_Low": 2,
       "ReportingRateLimitNs": 83333330,
       "TargetTimeFactor": 1.0,
-      "StaleTimeFactor": 4.0
+      "StaleTimeFactor": 10.0
     },
     {
       "Name": "ADPF_GAME",

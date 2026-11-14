@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (C) 2026 Palapa OS / Shinkai Project
+-->
+<resources>
+    <!-- Dynamic Island Strings -->
+    <string name="dynamic_island_charging">Mengisi daya</string>
+    <string name="dynamic_island_torch_label">Senter</string>
+    <string name="dynamic_island_torch_on">On</string>
+    <string name="dynamic_island_torch_subtext">Ketuk untuk mematikan</string>
+    <string name="dynamic_island_record_label">Perekam Layar</string>
+    <string name="dynamic_island_record_elapsed">Waktu Berjalan</string>
+    <string name="dynamic_island_record_stop">Berhenti</string>
+
+    <!-- Enhanced Power Menu Strings -->
+    <string name="power_menu_tag_pill">Material 3 Expressive • POCO F5</string>
+    <string name="power_menu_header_title">Menu Daya Sistem</string>
+    <string name="power_menu_slide_to_power_off">Geser untuk Mematikan Daya</string>
+    <string name="power_menu_find_my_device">Tetap terlacak oleh Find My Device</string>
+    <string name="power_menu_restart">Mulai Ulang</string>
+    <string name="power_menu_lockdown">Lockdown</string>
+    <string name="power_menu_emergency">Darurat</string>
+    <string name="power_menu_quick_controls">Kontrol Cepat Sistem</string>
+    <string name="power_menu_vip_tag">Palapa OS</string>
+    <string name="power_menu_torch">Senter</string>
+    <string name="power_menu_torch_on">Nyala</string>
+    <string name="power_menu_torch_off">Mati</string>
+    <string name="power_menu_airplane">Mode Pesawat</string>
+    <string name="power_menu_airplane_on">Aktif</string>
+    <string name="power_menu_airplane_off">Nonaktif</string>
+    <string name="power_menu_advanced_reboot_title">Mulai Ulang Lanjutan</string>
+    <string name="power_menu_advanced_system">Mulai Ulang Sistem</string>
+    <string name="power_menu_advanced_system_sub">Muat ulang Android secara normal</string>
+    <string name="power_menu_advanced_recovery">Mode Recovery</string>
+    <string name="power_menu_advanced_recovery_sub">Masuk ke TWRP / OrangeFox / Recovery</string>
+    <string name="power_menu_advanced_bootloader">Mode Bootloader</string>
+    <string name="power_menu_advanced_bootloader_sub">Masuk ke antarmuka flash Fastboot</string>
+    <string name="power_menu_advanced_systemui">Muat Ulang SystemUI</string>
+    <string name="power_menu_advanced_systemui_sub">Restart cepat antarmuka sistem (No reboot)</string>
+</resources>

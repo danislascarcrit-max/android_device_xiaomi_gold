@@ -80,7 +80,7 @@
                         android:layout_height="wrap_content"
                         android:text="Palapa OS"
                         android:textSize="26sp"
-                        android:fontFamily="@font/product_sans_bold"
+                        android:fontFamily="sans-serif-medium"
                         android:textStyle="bold"
                         android:textColor="#FFFFFF"
                         android:includeFontPadding="false" />
@@ -112,7 +112,7 @@
         android:layout_marginBottom="16dp"
         android:text="Redmi Note 13 5G"
         android:textSize="26sp"
-        android:fontFamily="@font/product_sans_bold"
+        android:fontFamily="sans-serif-medium"
         android:textStyle="bold"
         android:textColor="?android:attr/textColorPrimary"
         android:includeFontPadding="false" />
@@ -176,7 +176,7 @@
             android:layout_marginTop="4dp"
             android:text="Gustyx Redmi Note 13 5G"
             android:textSize="14.5sp"
-            android:fontFamily="@font/product_sans_bold"
+            android:fontFamily="sans-serif-medium"
             android:textStyle="bold"
             android:textColor="?android:attr/textColorPrimary"
             android:includeFontPadding="false" />
@@ -223,7 +223,7 @@
             android:layout_marginTop="4dp"
             android:text="2.91 GHz Qualcomm® MediaTek Dimensity 6080 Octa-core Octa-core"
             android:textSize="14.5sp"
-            android:fontFamily="@font/product_sans_bold"
+            android:fontFamily="sans-serif-medium"
             android:textStyle="bold"
             android:textColor="?android:attr/textColorPrimary"
             android:includeFontPadding="false" />
@@ -278,7 +278,7 @@
                 android:layout_marginTop="4dp"
                 android:text="256 GB"
                 android:textSize="14.5sp"
-                android:fontFamily="@font/product_sans_bold"
+                android:fontFamily="sans-serif-medium"
                 android:textStyle="bold"
                 android:textColor="?android:attr/textColorPrimary"
                 android:includeFontPadding="false" />
@@ -331,7 +331,7 @@
                     android:layout_height="wrap_content"
                     android:text="8 GB + 8 GB"
                     android:textSize="14.5sp"
-                    android:fontFamily="@font/product_sans_bold"
+                    android:fontFamily="sans-serif-medium"
                     android:textStyle="bold"
                     android:textColor="?android:attr/textColorPrimary"
                     android:includeFontPadding="false" />
@@ -389,7 +389,7 @@
             android:layout_marginTop="4dp"
             android:text="5000 mAh"
             android:textSize="14.5sp"
-            android:fontFamily="@font/product_sans_bold"
+            android:fontFamily="sans-serif-medium"
             android:textStyle="bold"
             android:textColor="?android:attr/textColorPrimary"
             android:includeFontPadding="false" />
@@ -436,7 +436,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/iqoo_menu_version_title"
                         android:textSize="15.5sp"
-                        android:fontFamily="@font/product_sans_bold"
+                        android:fontFamily="sans-serif-medium"
                         android:textStyle="bold"
                         android:textColor="?android:attr/textColorPrimary"
                         android:includeFontPadding="false" />
@@ -493,7 +493,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/iqoo_menu_status_title"
                         android:textSize="15.5sp"
-                        android:fontFamily="@font/product_sans_bold"
+                        android:fontFamily="sans-serif-medium"
                         android:textStyle="bold"
                         android:textColor="?android:attr/textColorPrimary"
                         android:includeFontPadding="false" />
@@ -550,7 +550,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/iqoo_menu_legal_title"
                         android:textSize="15.5sp"
-                        android:fontFamily="@font/product_sans_bold"
+                        android:fontFamily="sans-serif-medium"
                         android:textStyle="bold"
                         android:textColor="?android:attr/textColorPrimary"
                         android:includeFontPadding="false" />
@@ -607,7 +607,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/iqoo_menu_customer_title"
                         android:textSize="15.5sp"
-                        android:fontFamily="@font/product_sans_bold"
+                        android:fontFamily="sans-serif-medium"
                         android:textStyle="bold"
                         android:textColor="?android:attr/textColorPrimary"
                         android:includeFontPadding="false" />
@@ -665,7 +665,7 @@
             android:layout_marginStart="8dp"
             android:text="Android 17"
             android:textSize="16.5sp"
-            android:fontFamily="@font/product_sans_bold"
+            android:fontFamily="sans-serif-medium"
             android:textStyle="bold"
             android:textColor="?android:attr/textColorPrimary"
             android:includeFontPadding="false" />

@@ -225,3 +225,4 @@ include vendor/xiaomi/gold/BoardConfigVendor.mk
 # Allow prebuilt camera ELF (.so) files in PRODUCT_COPY_FILES
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 DONT_UNCOMPRESS_PRIV_APPS_DEXS := true
+BUILD_BROKEN_MISSING_REQUIRED_MODULES := true

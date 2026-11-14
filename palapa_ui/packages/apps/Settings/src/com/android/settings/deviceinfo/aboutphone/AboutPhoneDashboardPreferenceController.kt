@@ -155,37 +155,7 @@ class AboutPhoneDashboardPreferenceController(context: Context, key: String) :
                 }
 
                 // Detect zRAM (Swap)
-                val zramGb = try {
-                    val zramFile = File("/sys/block/zram0/disksize")
-                    val bytes = if (zramFile.canRead()) {
-                        zramFile.readText().trim().toLongOrNull()
-                    } else {
-                        null
-                    }
-                    if (bytes != null) {
-                        (bytes.toDouble() / (1024.0 * 1024.0 * 1024.0)).roundToInt()
-                    } else {
-                        var swapKb = 0L
-                        File("/proc/meminfo").forEachLine { line ->
-                            if (line.startsWith("SwapTotal:")) {
-                                swapKb = line.substringAfter(":").trim().substringBefore(" ").trim().toLongOrNull() ?: 0L
-                            }
-                        }
-                        (swapKb.toDouble() / (1024.0 * 1024.0)).roundToInt()
-                    }
-                } catch (e: Exception) {
-                    var swapKb = 0L
-                    try {
-                        File("/proc/meminfo").forEachLine { line ->
-                            if (line.startsWith("SwapTotal:")) {
-                                swapKb = line.substringAfter(":").trim().substringBefore(" ").trim().toLongOrNull() ?: 0L
-                            }
-                        }
-                    } catch (_: Exception) {
-                    }
-                    (swapKb.toDouble() / (1024.0 * 1024.0)).roundToInt()
-                }
-
+                val zramGb = android.provider.Settings.Global.getInt(context.contentResolver, "ram_expansion_size", 4)
                 val ramText = if (zramGb > 0) "$physicalRamGb GB + $zramGb GB" else "$physicalRamGb GB"
                 layoutPreference.findViewById<TextView>(R.id.about_spec_ram_value)?.text = ramText
             } catch (e: Exception) {

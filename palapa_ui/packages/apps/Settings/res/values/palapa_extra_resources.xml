@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="back_gesture_arrow_title">back gesture arrow title</string>
+    <string name="back_gesture_arrow_summary">back gesture arrow summary</string>
+    <string name="back_gesture_haptic_title">back gesture haptic title</string>
+    <string name="back_gesture_haptic_summary">back gesture haptic summary</string>
+    <string name="back_height_title">back height title</string>
+    <string name="back_height_summary">back height summary</string>
+    <string name="back_height_low_label">back height low label</string>
+    <string name="back_height_high_label">back height high label</string>
+    <string name="gesture_navbar_length_title">gesture navbar length title</string>
+    <string name="gesture_navbar_radius_title">gesture navbar radius title</string>
+    <string name="short_label">short label</string>
+    <string name="long_label">long label</string>
+    <string name="thin_label">thin label</string>
+    <string name="thick_label">thick label</string>
+    <string name="navbar_actions_category_title">navbar actions category title</string>
+    <string name="navbar_corner_long_swipe_title">navbar corner long swipe title</string>
+    <string name="navbar_edge_long_swipe_title">navbar edge long swipe title</string>
+    <string name="navigation_bar_enable_taskbar_title">navigation bar enable taskbar title</string>
+    <string name="navigation_bar_enable_taskbar_summary">navigation bar enable taskbar summary</string>
+    <string name="show_ime_space_title">show ime space title</string>
+    <string name="show_ime_space_summary">show ime space summary</string>
+    <string name="live_display_title">LiveDisplay</string>
+<color name="face_enroll_error">#4285F4</color><color name="face_enroll_progress">#4285F4</color><color name="face_enroll_success">#4285F4</color><color name="face_enroll_warning">#4285F4</color><integer name="config_notificationServiceArchiveSize">1</integer><string name="install_unknown_applications">install unknown applications</string></resources>

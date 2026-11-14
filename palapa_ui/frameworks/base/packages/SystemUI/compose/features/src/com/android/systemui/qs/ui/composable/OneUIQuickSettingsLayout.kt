@@ -336,12 +336,12 @@ fun ContentScope.OneUIQuickSettingsLayout(
     TileListener(tiles = allTiles) { true }
 
     // Partition tiles into Pills (outside the box) vs Grid (inside the box)
-    val pillTiles = allTiles.filter { pillSpecs.contains(it.spec.spec) }
-    val gridTiles = allTiles.filter { !pillSpecs.contains(it.spec.spec) }
+    val pillTiles = allTiles.filter { pillSpecs.contains(it.spec.spec) }.distinctBy { it.spec.spec }
+    val gridTiles = allTiles.filter { !pillSpecs.contains(it.spec.spec) }.distinctBy { it.spec.spec }
 
     // Top pills: first 2 pill tiles (default: Wi-Fi & Bluetooth, or whatever user placed first)
-    val topPill1 = pillTiles.getOrNull(0) ?: allTiles.firstOrNull { it.spec.spec == "internet" || it.spec.spec == "wifi" }
-    val topPill2 = pillTiles.getOrNull(1) ?: allTiles.firstOrNull { it.spec.spec == "bt" || it.spec.spec == "bluetooth" }
+    val topPill1 = pillTiles.getOrNull(0)
+    val topPill2 = pillTiles.getOrNull(1)?.takeIf { it != topPill1 }
 
     // Bottom pills: any remaining pills beyond the first 2
     val bottomPillTiles = pillTiles.filter { it != topPill1 && it != topPill2 }
@@ -421,7 +421,7 @@ fun ContentScope.OneUIQuickSettingsLayout(
                         title = topPill1.spec.spec.replaceFirstChar { it.uppercase() },
                         defaultIconRes = R.drawable.ic_statusbar_wifi,
                         tile = topPill1,
-                        fallbackTile = allTiles.getOrNull(0),
+                        fallbackTile = null,
                         modifier = Modifier.weight(1f),
                         isDark = isDark,
                         pillActiveBg = pillActiveBg,
@@ -437,7 +437,7 @@ fun ContentScope.OneUIQuickSettingsLayout(
                         title = topPill2.spec.spec.replaceFirstChar { it.uppercase() },
                         defaultIconRes = R.drawable.vd_bluetooth,
                         tile = topPill2,
-                        fallbackTile = allTiles.getOrNull(1),
+                        fallbackTile = null,
                         modifier = Modifier.weight(1f),
                         isDark = isDark,
                         pillActiveBg = pillActiveBg,
@@ -1305,7 +1305,7 @@ fun ContentScope.OneUIQuickQuickSettingsLayout(
 
     val wifiTile = allTiles.firstOrNull { it.spec.spec == "internet" || it.spec.spec == "wifi" }
     val btTile = allTiles.firstOrNull { it.spec.spec == "bt" || it.spec.spec == "bluetooth" }
-    val roundTiles = allTiles.filter { it != wifiTile && it != btTile }.take(6)
+    val roundTiles = allTiles.filter { it != wifiTile && it != btTile }.distinctBy { it.spec.spec }.take(6)
 
     val context = LocalContext.current
 
@@ -1376,7 +1376,7 @@ fun ContentScope.OneUIQuickQuickSettingsLayout(
                 title = "Wi-Fi",
                 defaultIconRes = R.drawable.ic_statusbar_wifi,
                 tile = wifiTile,
-                fallbackTile = allTiles.getOrNull(0),
+                fallbackTile = null,
                 modifier = Modifier.weight(1f),
                 isDark = isDark,
                 pillActiveBg = pillActiveBg,
@@ -1391,7 +1391,7 @@ fun ContentScope.OneUIQuickQuickSettingsLayout(
                 title = "Bluetooth",
                 defaultIconRes = R.drawable.vd_bluetooth,
                 tile = btTile,
-                fallbackTile = allTiles.getOrNull(1),
+                fallbackTile = null,
                 modifier = Modifier.weight(1f),
                 isDark = isDark,
                 pillActiveBg = pillActiveBg,
